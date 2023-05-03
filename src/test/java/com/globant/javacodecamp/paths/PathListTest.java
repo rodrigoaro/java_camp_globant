@@ -84,9 +84,81 @@ class PathListTest {
         var pathList = new PathList(List.of(path1, path2));
 
         var optionalPath  = pathList.shortestPath(includingPoint);
+
         assertTrue(optionalPath.isPresent());
 
         assertEquals(path2, optionalPath.get());
+    }
+
+    @Test
+    void testShortestPathIncludingTwoPoints(){
+
+        var path1 = new Path(List.of(new Segment(
+                        new Point(BigDecimal.ZERO, BigDecimal.ZERO),
+                        new Point(BigDecimal.ZERO, BigDecimal.ZERO)
+                ),
+                new Segment(
+                        new Point(BigDecimal.ZERO, BigDecimal.ONE),
+                        new Point(BigDecimal.ONE, BigDecimal.ONE)
+                )
+        )
+        );
+
+        var includingPoint = new Point(BigDecimal.TEN, BigDecimal.ONE);
+        var includingPoint2 = new Point(BigDecimal.ONE, BigDecimal.ONE);
+
+        var path2 = new Path(
+                List.of(new Segment(
+                                new Point(BigDecimal.ZERO, BigDecimal.ZERO),
+                                new Point(BigDecimal.ZERO, BigDecimal.ONE)
+                        ),
+                        new Segment(
+                                includingPoint,
+                                includingPoint2
+                        )
+                )
+        );
+
+        var pathList = new PathList(List.of(path1, path2));
+
+        var optionalPath  = pathList.shortestPath(List.of(includingPoint, includingPoint2));
+
+        assertTrue(optionalPath.isPresent());
+
+        assertEquals(path2, optionalPath.get());
+    }
+
+    @Test
+    void testShortestPathNotIncludingPoint(){
+
+        var path1 = new Path(List.of(new Segment(
+                        new Point(BigDecimal.ZERO, BigDecimal.ZERO),
+                        new Point(BigDecimal.ZERO, BigDecimal.ZERO)
+                ),
+                new Segment(
+                        new Point(BigDecimal.ZERO, BigDecimal.ONE),
+                        new Point(BigDecimal.ONE, BigDecimal.ONE)
+                )
+        )
+        );
+
+        var path2 = new Path(
+                List.of(new Segment(
+                                new Point(BigDecimal.ZERO, BigDecimal.ZERO),
+                                new Point(BigDecimal.ZERO, BigDecimal.ONE)
+                        ),
+                        new Segment(
+                                new Point(BigDecimal.TEN, BigDecimal.ONE),
+                                new Point(BigDecimal.ONE, BigDecimal.ONE)
+                        )
+                )
+        );
+
+        var pathList = new PathList(List.of(path1, path2));
+
+        var optionalPath  = pathList.shortestPath(new Point(BigDecimal.TEN, BigDecimal.TEN));
+
+        assertFalse(optionalPath.isPresent());
     }
 
 }

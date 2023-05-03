@@ -1,7 +1,10 @@
 package com.globant.javacodecamp.paths;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public record Path(List<Segment> segments) {
 
@@ -25,5 +28,14 @@ public record Path(List<Segment> segments) {
                 .anyMatch(s -> s.includesPoint(point));
     }
 
+
+    public boolean includesPoints(List<Point> points) {
+        var pointsInPath = segments()
+                .stream()
+                .flatMap(s -> Stream.of(s.first(), s.second()))
+                .collect(Collectors.toSet());
+
+        return pointsInPath.containsAll(points);
+    }
 
 }

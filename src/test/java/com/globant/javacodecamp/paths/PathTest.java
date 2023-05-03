@@ -3,7 +3,6 @@ package com.globant.javacodecamp.paths;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
