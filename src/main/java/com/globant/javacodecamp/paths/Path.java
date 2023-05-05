@@ -38,4 +38,8 @@ public record Path(List<Segment> segments) {
         return pointsInPath.containsAll(points);
     }
 
+    public List<Point> firstAndLastPoint(){
+        return List.of(segments.get(0).first(),
+                        segments.get(segments.size() - 1).second());
+    }
 }
